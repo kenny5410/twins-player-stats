@@ -33,15 +33,15 @@ body {
 /* Center the Header (Title + Dark Mode Button) */
 .header {
     display: flex;
-    justify-content: center;  /* Center title & button */
+    justify-content: center;
     align-items: center;
-    gap: 12px; /* Space between title and toggle */
+    gap: 12px;
     padding-bottom: 10px;
 }
 
 /* Title and Subtitle */
 h1 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 600;
 }
 
@@ -68,8 +68,8 @@ h1 {
 .refresh-btn {
     background: #007bff;
     color: white;
-    font-size: 18px;
-    padding: 14px 24px;
+    font-size: 16px;
+    padding: 12px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -141,49 +141,32 @@ tr:hover {
     background-color: #3a3a3a;
 }
 
-/* Responsive Design */
+/* ✅ Mobile-Friendly Adjustments */
 @media (max-width: 600px) {
     .container {
-        width: 100%;
+        width: 95%;
         padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .refresh-btn {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+
+    /* Make table scrollable on small screens */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        border-radius: 8px;
     }
 
     th, td {
         padding: 10px;
+        font-size: 14px;
     }
-}
-
-/* Table Header Sorting */
-th {
-    cursor: pointer;
-    position: relative;
-}
-
-th::after {
-    content: " ⬍"; /* Sorting Indicator */
-    font-size: 12px;
-    margin-left: 5px;
-    color: #bbb;
-}
-
-th.asc::after {
-    content: " ▲"; /* Ascending */
-    color: #000;
-}
-
-th.desc::after {
-    content: " ▼"; /* Descending */
-    color: #000;
-}
-
-.dark-mode th::after {
-    color: #bbb;
-}
-
-.dark-mode th.asc::after {
-    color: #fff;
-}
-
-.dark-mode th.desc::after {
-    color: #fff;
 }
