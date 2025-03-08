@@ -1,0 +1,189 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* General Page Styles */
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Main container */
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Center the Header (Title + Dark Mode Button) */
+.header {
+    display: flex;
+    justify-content: center;  /* Center title & button */
+    align-items: center;
+    gap: 12px; /* Space between title and toggle */
+    padding-bottom: 10px;
+}
+
+/* Title and Subtitle */
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Dark Mode Toggle Button */
+#dark-mode-toggle {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#dark-mode-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Refresh Button */
+.refresh-btn {
+    background: #007bff;
+    color: white;
+    font-size: 18px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.refresh-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Section Styling */
+section {
+    margin-top: 30px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    transition: background 0.3s;
+}
+
+th, td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #003f5c;
+    color: white;
+    text-transform: uppercase;
+}
+
+tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 🔥 DARK MODE STYLES 🔥 */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .container {
+    background-color: #1e1e1e;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode table {
+    background-color: #2a2a2a;
+}
+
+.dark-mode th {
+    background-color: #004080;
+}
+
+.dark-mode tr:hover {
+    background-color: #3a3a3a;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+}
+
+/* Table Header Sorting */
+th {
+    cursor: pointer;
+    position: relative;
+}
+
+th::after {
+    content: " ⬍"; /* Sorting Indicator */
+    font-size: 12px;
+    margin-left: 5px;
+    color: #bbb;
+}
+
+th.asc::after {
+    content: " ▲"; /* Ascending */
+    color: #000;
+}
+
+th.desc::after {
+    content: " ▼"; /* Descending */
+    color: #000;
+}
+
+.dark-mode th::after {
+    color: #bbb;
+}
+
+.dark-mode th.asc::after {
+    color: #fff;
+}
+
+.dark-mode th.desc::after {
+    color: #fff;
+}

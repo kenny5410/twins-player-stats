@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twins Player Stats</title>
+    
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <!-- Link to JavaScript -->
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚾ Minnesota Twins Player Stats</h1>
+            <button id="dark-mode-toggle">🌙</button>
+        </div>
+        <p class="subtitle">Tracking the top 10 hitters and pitchers of the season</p>
+
+        <button class="refresh-btn" onclick="fetchHitters(); fetchPitchers();">🔄 Refresh Stats</button>
+
+        <section>
+            <h2>Top 10 Hitters</h2>
+            <table id="hitters-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>AVG</th>
+                        <th>HR</th>
+                        <th>OPS</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Top 10 Pitchers</h2>
+            <table id="pitchers-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ERA</th>
+                        <th>WHIP</th>
+                        <th>K/9</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>
