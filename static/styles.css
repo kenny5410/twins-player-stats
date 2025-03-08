@@ -157,9 +157,16 @@ tr:hover {
         padding: 10px 16px;
     }
 
-    /* Hide Tables and Use Cards */
+    /* Hide Tables on Mobile */
     table {
-        display: none; /* Hide tables on small screens */
+        display: none;
+    }
+
+    /* Mobile Player Cards */
+    .player-cards-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
     .player-card {
