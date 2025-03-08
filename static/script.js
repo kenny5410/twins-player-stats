@@ -1,7 +1,9 @@
-// Fetch hitters data from Flask backend
+const API_BASE_URL = "https://twins-player-stats-backend.onrender.com"; // Your Render backend URL
+
+// Fetch hitters data from Render backend
 async function fetchHitters() {
     try {
-        const response = await fetch("http://127.0.0.1:5000/hitters");
+        const response = await fetch(`${API_BASE_URL}/hitters`);
         if (!response.ok) {
             throw new Error("Failed to fetch hitters data");
         }
@@ -12,10 +14,10 @@ async function fetchHitters() {
     }
 }
 
-// Fetch pitchers data from Flask backend
+// Fetch pitchers data from Render backend
 async function fetchPitchers() {
     try {
-        const response = await fetch("http://127.0.0.1:5000/pitchers");
+        const response = await fetch(`${API_BASE_URL}/pitchers`);
         if (!response.ok) {
             throw new Error("Failed to fetch pitchers data");
         }
@@ -26,7 +28,7 @@ async function fetchPitchers() {
     }
 }
 
-// Populate table with data
+// Populate table with correct column order
 function populateTable(tableId, data) {
     const tableBody = document.querySelector(`#${tableId} tbody`);
     tableBody.innerHTML = ""; // Clear previous data
