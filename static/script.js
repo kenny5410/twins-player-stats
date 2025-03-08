@@ -3,7 +3,7 @@ const API_BASE_URL = "https://twins-player-stats-backend.onrender.com"; // Your 
 // Fetch hitters data
 async function fetchHitters() {
     const loadingElement = document.getElementById("hitters-loading");
-    loadingElement.style.display = "block"; // Show loading message
+    loadingElement.style.display = "block";
 
     try {
         const response = await fetch(`${API_BASE_URL}/hitters`);
@@ -15,14 +15,14 @@ async function fetchHitters() {
     } catch (error) {
         console.error("Error fetching hitters:", error);
     } finally {
-        loadingElement.style.display = "none"; // Hide loading message
+        loadingElement.style.display = "none";
     }
 }
 
 // Fetch pitchers data
 async function fetchPitchers() {
     const loadingElement = document.getElementById("pitchers-loading");
-    loadingElement.style.display = "block"; // Show loading message
+    loadingElement.style.display = "block";
 
     try {
         const response = await fetch(`${API_BASE_URL}/pitchers`);
@@ -34,7 +34,7 @@ async function fetchPitchers() {
     } catch (error) {
         console.error("Error fetching pitchers:", error);
     } finally {
-        loadingElement.style.display = "none"; // Hide loading message
+        loadingElement.style.display = "none";
     }
 }
 
@@ -69,13 +69,49 @@ function populateTable(tableId, data, cardContainerId) {
         // Create Card for Mobile
         const card = document.createElement("div");
         card.classList.add("player-card");
+        if (document.body.classList.contains("dark-mode")) {
+            card.classList.add("dark-mode-card"); // Apply dark mode styling if enabled
+        }
+
         card.innerHTML = `
             <h3>${player.name}</h3>
-            <p><strong>AVG:</strong> ${player.avg || player.era}</p>
-            <p><strong>HR / WHIP:</strong> ${player.hr || player.whip}</p>
-            <p><strong>OPS / K/9:</strong> ${player.ops || player.k9}</p>
+            <p><strong>${tableId === "hitters-table" ? "AVG" : "ERA"}:</strong> ${player.avg || player.era}</p>
+            <p><strong>${tableId === "hitters-table" ? "HR" : "WHIP"}:</strong> ${player.hr || player.whip}</p>
+            <p><strong>${tableId === "hitters-table" ? "OPS" : "K/9"}:</strong> ${player.ops || player.k9}</p>
         `;
         cardContainer.appendChild(card);
+    });
+}
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+const body = document.body;
+
+// Load saved theme preference
+if (localStorage.getItem("darkMode") === "enabled") {
+    body.classList.add("dark-mode");
+    darkModeToggle.textContent = "☀️"; // Sun icon for light mode
+    updateDarkModeForCards(true);
+}
+
+// Toggle theme on click
+darkModeToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    const isDarkMode = body.classList.contains("dark-mode");
+
+    localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
+    darkModeToggle.textContent = isDarkMode ? "☀️" : "🌙";
+    updateDarkModeForCards(isDarkMode);
+});
+
+// Update dark mode for player cards
+function updateDarkModeForCards(isDarkMode) {
+    document.querySelectorAll(".player-card").forEach(card => {
+        if (isDarkMode) {
+            card.classList.add("dark-mode-card");
+        } else {
+            card.classList.remove("dark-mode-card");
+        }
     });
 }
 
