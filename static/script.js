@@ -1,6 +1,6 @@
 const API_BASE_URL = "https://twins-player-stats-backend.onrender.com"; // Your Render backend URL
 
-// Fetch hitters data with loading animation
+// Fetch hitters data
 async function fetchHitters() {
     const loadingElement = document.getElementById("hitters-loading");
     loadingElement.style.display = "block"; // Show loading message
@@ -11,7 +11,7 @@ async function fetchHitters() {
             throw new Error("Failed to fetch hitters data");
         }
         const hitters = await response.json();
-        populateTable("hitters-table", hitters);
+        populateTable("hitters-table", hitters, "hitters-cards");
     } catch (error) {
         console.error("Error fetching hitters:", error);
     } finally {
@@ -19,7 +19,7 @@ async function fetchHitters() {
     }
 }
 
-// Fetch pitchers data with loading animation
+// Fetch pitchers data
 async function fetchPitchers() {
     const loadingElement = document.getElementById("pitchers-loading");
     loadingElement.style.display = "block"; // Show loading message
@@ -30,7 +30,7 @@ async function fetchPitchers() {
             throw new Error("Failed to fetch pitchers data");
         }
         const pitchers = await response.json();
-        populateTable("pitchers-table", pitchers);
+        populateTable("pitchers-table", pitchers, "pitchers-cards");
     } catch (error) {
         console.error("Error fetching pitchers:", error);
     } finally {
@@ -38,10 +38,12 @@ async function fetchPitchers() {
     }
 }
 
-// Populate table with correct column order
-function populateTable(tableId, data) {
+// Populate table & mobile cards
+function populateTable(tableId, data, cardContainerId) {
     const tableBody = document.querySelector(`#${tableId} tbody`);
-    tableBody.innerHTML = ""; // Clear previous data
+    const cardContainer = document.getElementById(cardContainerId);
+    tableBody.innerHTML = "";
+    cardContainer.innerHTML = "";
 
     data.forEach(player => {
         const row = document.createElement("tr");
@@ -63,58 +65,19 @@ function populateTable(tableId, data) {
         }
 
         tableBody.appendChild(row);
+
+        // Create Card for Mobile
+        const card = document.createElement("div");
+        card.classList.add("player-card");
+        card.innerHTML = `
+            <h3>${player.name}</h3>
+            <p><strong>AVG:</strong> ${player.avg || player.era}</p>
+            <p><strong>HR / WHIP:</strong> ${player.hr || player.whip}</p>
+            <p><strong>OPS / K/9:</strong> ${player.ops || player.k9}</p>
+        `;
+        cardContainer.appendChild(card);
     });
 }
-
-// Sorting Logic
-document.querySelectorAll("th").forEach(header => {
-    header.addEventListener("click", function () {
-        const table = this.closest("table");
-        const tbody = table.querySelector("tbody");
-        const rows = Array.from(tbody.querySelectorAll("tr"));
-        const columnIndex = Array.from(this.parentNode.children).indexOf(this);
-        const isAscending = this.classList.contains("asc");
-
-        rows.sort((rowA, rowB) => {
-            let valueA = rowA.children[columnIndex].textContent.trim();
-            let valueB = rowB.children[columnIndex].textContent.trim();
-
-            // Detect if sorting numbers or text
-            if (!isNaN(valueA) && !isNaN(valueB)) {
-                valueA = parseFloat(valueA);
-                valueB = parseFloat(valueB);
-            }
-
-            return isAscending ? valueA - valueB : valueB - valueA;
-        });
-
-        // Remove existing sorting classes
-        table.querySelectorAll("th").forEach(th => th.classList.remove("asc", "desc"));
-        this.classList.add(isAscending ? "desc" : "asc");
-
-        tbody.innerHTML = "";
-        rows.forEach(row => tbody.appendChild(row));
-    });
-});
-
-// Dark Mode Toggle
-const darkModeToggle = document.getElementById("dark-mode-toggle");
-const body = document.body;
-
-// Load saved theme preference
-if (localStorage.getItem("darkMode") === "enabled") {
-    body.classList.add("dark-mode");
-    darkModeToggle.textContent = "☀️"; // Sun icon for light mode
-}
-
-// Toggle theme on click
-darkModeToggle.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-    const isDarkMode = body.classList.contains("dark-mode");
-
-    localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
-    darkModeToggle.textContent = isDarkMode ? "☀️" : "🌙";
-});
 
 // Load data when the page loads
 window.onload = function() {
