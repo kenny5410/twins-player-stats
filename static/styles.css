@@ -170,3 +170,18 @@ tr:hover {
         font-size: 14px;
     }
 }
+
+/* Loading Animation */
+.loading {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    text-align: center;
+    margin: 10px 0;
+    display: none; /* Initially hidden */
+}
+
+/* Dark Mode Loading Style */
+.dark-mode .loading {
+    color: #66b3ff;
+}

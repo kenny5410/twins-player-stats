@@ -1,7 +1,10 @@
 const API_BASE_URL = "https://twins-player-stats-backend.onrender.com"; // Your Render backend URL
 
-// Fetch hitters data from Render backend
+// Fetch hitters data with loading animation
 async function fetchHitters() {
+    const loadingElement = document.getElementById("hitters-loading");
+    loadingElement.style.display = "block"; // Show loading message
+
     try {
         const response = await fetch(`${API_BASE_URL}/hitters`);
         if (!response.ok) {
@@ -11,11 +14,16 @@ async function fetchHitters() {
         populateTable("hitters-table", hitters);
     } catch (error) {
         console.error("Error fetching hitters:", error);
+    } finally {
+        loadingElement.style.display = "none"; // Hide loading message
     }
 }
 
-// Fetch pitchers data from Render backend
+// Fetch pitchers data with loading animation
 async function fetchPitchers() {
+    const loadingElement = document.getElementById("pitchers-loading");
+    loadingElement.style.display = "block"; // Show loading message
+
     try {
         const response = await fetch(`${API_BASE_URL}/pitchers`);
         if (!response.ok) {
@@ -25,6 +33,8 @@ async function fetchPitchers() {
         populateTable("pitchers-table", pitchers);
     } catch (error) {
         console.error("Error fetching pitchers:", error);
+    } finally {
+        loadingElement.style.display = "none"; // Hide loading message
     }
 }
 

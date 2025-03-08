@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Twins Player Stats</title>
-        <link rel="stylesheet" href="static/styles.css">
-        <script defer src="static/script.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twins Player Stats</title>
+    
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="static/styles.css">
+    
+    <!-- Link to JavaScript -->
+    <script defer src="static/script.js"></script>
+</head>
 <body>
     <div class="container">
         <div class="header">
@@ -17,6 +23,7 @@
 
         <section>
             <h2>Top 10 Hitters</h2>
+            <div id="hitters-loading" class="loading">🔄 Loading...</div>
             <table id="hitters-table">
                 <thead>
                     <tr>
@@ -32,6 +39,7 @@
 
         <section>
             <h2>Top 10 Pitchers</h2>
+            <div id="pitchers-loading" class="loading">🔄 Loading...</div>
             <table id="pitchers-table">
                 <thead>
                     <tr>
