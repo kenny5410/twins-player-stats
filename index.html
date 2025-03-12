@@ -3,62 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twins Player Stats</title>
-
-    <!-- Link to external CSS -->
+    <title>Minnesota Twins Player Stats</title>
     <link rel="stylesheet" href="static/styles.css">
-
-    <!-- Link to JavaScript -->
     <script defer src="static/script.js"></script>
 </head>
-
 <body>
     <div class="container">
-        <div class="header">
+        <header class="header">
             <h1>⚾ Minnesota Twins Player Stats</h1>
-            <button id="dark-mode-toggle" aria-label="Switch to dark mode">🌙</button>
-        </div>
-        <p class="subtitle">Tracking the top 10 hitters and pitchers of the season</p>
+            <nav>
+                <a href="about.html" class="nav-link">About StatVue</a>
+            </nav>
+            <button id="dark-mode-toggle">🌙</button>
+        </header>
+        
+        <p class="subtitle">Tracking the top 10 hitters and pitchers of the season.</p>
 
-        <button class="refresh-btn" aria-label="Refresh statistics">🔄 Refresh Stats</button>
+        <button class="refresh-btn" onclick="fetchHitters(); fetchPitchers();">🔄 Refresh Stats</button>
 
-        <section id="hitters-table-container">
+        <!-- Hitters Section -->
+        <section>
             <h2>Top 10 Hitters</h2>
-            <div id="hitters-loading" class="loading">🔄 Loading...</div>
-            <div id="hitters-error" class="error-message" style="display: none;"></div>
+            <div id="hitters-loading" class="loading">Loading...</div>
             <table id="hitters-table">
                 <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">AVG</th>
-                        <th scope="col">HR</th>
-                        <th scope="col">OPS</th>
+                        <th>NAME</th>
+                        <th>AVG</th>
+                        <th>HR</th>
+                        <th>OPS</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <!-- Data Fetched from API -->
+                </tbody>
             </table>
-            <!-- Mobile Cards -->
             <div id="hitters-cards" class="player-cards-container"></div>
         </section>
 
-        <section id="pitchers-table-container">
+        <!-- Pitchers Section -->
+        <section>
             <h2>Top 10 Pitchers</h2>
-            <div id="pitchers-loading" class="loading">🔄 Loading...</div>
-            <div id="pitchers-error" class="error-message" style="display: none;"></div>
+            <div id="pitchers-loading" class="loading">Loading...</div>
             <table id="pitchers-table">
                 <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">ERA</th>
-                        <th scope="col">WHIP</th>
-                        <th scope="col">K/9</th>
+                        <th>NAME</th>
+                        <th>ERA</th>
+                        <th>WHIP</th>
+                        <th>K/9</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <!-- Data Fetched from API -->
+                </tbody>
             </table>
-            <!-- Mobile Cards -->
             <div id="pitchers-cards" class="player-cards-container"></div>
         </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Built by <strong>StatVue</strong> – Modern sports analytics</p>
+        </footer>
     </div>
 </body>
 </html>

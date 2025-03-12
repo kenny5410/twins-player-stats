@@ -233,3 +233,33 @@ tr:hover {
         padding: 20px;
     }
 }
+
+/* Navigation Styling */
+nav {
+    margin-top: 10px;
+}
+
+.nav-link {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #002B5C; /* Twins Navy */
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 2px solid #D31145; /* Twins Red */
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+    background: #D31145;
+    color: white;
+}
+
+/* Footer Styling */
+footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
