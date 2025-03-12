@@ -196,3 +196,10 @@ tr:hover {
         border: 1px solid #444;
     }
 }
+
+/* Hide mobile cards on desktop */
+@media (min-width: 601px) {
+    .player-cards-container {
+        display: none;
+    }
+}
