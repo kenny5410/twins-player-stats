@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,22 +16,23 @@
     <div class="container">
         <div class="header">
             <h1>⚾ Minnesota Twins Player Stats</h1>
-            <button id="dark-mode-toggle">🌙</button>
+            <button id="dark-mode-toggle" aria-label="Switch to dark mode">🌙</button>
         </div>
         <p class="subtitle">Tracking the top 10 hitters and pitchers of the season</p>
 
-        <button class="refresh-btn" onclick="fetchHitters(); fetchPitchers();">🔄 Refresh Stats</button>
+        <button class="refresh-btn" aria-label="Refresh statistics">🔄 Refresh Stats</button>
 
-        <section>
+        <section id="hitters-table-container">
             <h2>Top 10 Hitters</h2>
             <div id="hitters-loading" class="loading">🔄 Loading...</div>
+            <div id="hitters-error" class="error-message" style="display: none;"></div>
             <table id="hitters-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>AVG</th>
-                        <th>HR</th>
-                        <th>OPS</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">AVG</th>
+                        <th scope="col">HR</th>
+                        <th scope="col">OPS</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -41,16 +41,17 @@
             <div id="hitters-cards" class="player-cards-container"></div>
         </section>
 
-        <section>
+        <section id="pitchers-table-container">
             <h2>Top 10 Pitchers</h2>
             <div id="pitchers-loading" class="loading">🔄 Loading...</div>
+            <div id="pitchers-error" class="error-message" style="display: none;"></div>
             <table id="pitchers-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>ERA</th>
-                        <th>WHIP</th>
-                        <th>K/9</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">ERA</th>
+                        <th scope="col">WHIP</th>
+                        <th scope="col">K/9</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -60,5 +61,4 @@
         </section>
     </div>
 </body>
-
 </html>
