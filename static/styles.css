@@ -9,7 +9,7 @@
 /* General Page Styles */
 body {
     background-color: #f8f9fa;
-    color: #333;
+    color: #002B5C; /* Navy Blue */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,6 +28,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: background 0.3s, color 0.3s;
+    border: 3px solid #D31145; /* Red Accent */
 }
 
 /* Center the Header (Title + Dark Mode Button) */
@@ -41,8 +42,9 @@ body {
 
 /* Title and Subtitle */
 h1 {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 700;
+    color: #002B5C; /* Navy Blue */
 }
 
 .subtitle {
@@ -66,7 +68,7 @@ h1 {
 
 /* Refresh Button */
 .refresh-btn {
-    background: #007bff;
+    background: #D31145; /* Twins Red */
     color: white;
     font-size: 16px;
     padding: 12px 20px;
@@ -77,39 +79,13 @@ h1 {
 }
 
 .refresh-btn:hover {
-    background: #0056b3;
+    background: #A30D35; /* Darker Red */
     transform: scale(1.05);
 }
 
 /* Section Styling */
 section {
     margin-top: 30px;
-}
-
-/* Loading indicator */
-.loading {
-    margin: 10px 0;
-    color: #666;
-    font-style: italic;
-}
-
-/* Error message styling */
-.error-message {
-    color: #d32f2f;
-    background-color: #ffebee;
-    padding: 12px;
-    border-radius: 8px;
-    margin: 10px 0;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: left;
-}
-
-.error-message::before {
-    content: "⚠️";
-    margin-right: 8px;
 }
 
 /* Table Styles */
@@ -130,13 +106,17 @@ th, td {
 }
 
 th {
-    background-color: #003f5c;
+    background-color: #002B5C; /* Twins Navy */
     color: white;
     text-transform: uppercase;
 }
 
 tr:hover {
     background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* 🔥 DARK MODE STYLES 🔥 */
@@ -149,10 +129,7 @@ tr:hover {
     background-color: #1e1e1e;
     color: white;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-.dark-mode .subtitle {
-    color: #aaa;
+    border: 3px solid #D31145; /* Keep Red Accent */
 }
 
 .dark-mode table {
@@ -160,44 +137,22 @@ tr:hover {
 }
 
 .dark-mode th {
-    background-color: #004080;
+    background-color: #D31145; /* Red in Dark Mode */
 }
 
 .dark-mode tr:hover {
     background-color: #3a3a3a;
 }
 
-.dark-mode .loading {
-    color: #aaa;
-}
-
-.dark-mode .error-message {
-    background-color: #4a0c0c;
-    color: #ff9d9d;
-    border: 1px solid #6e1414;
-}
-
-/* Accessibility improvements */
-.dark-mode-toggle:focus,
-.refresh-btn:focus {
-    outline: 2px solid #4d90fe;
-    outline-offset: 2px;
-}
-
-.dark-mode .dark-mode-toggle:focus,
-.dark-mode .refresh-btn:focus {
-    outline: 2px solid #80bdff;
-}
-
 /* ✅ Mobile-Friendly Adjustments */
-@media (max-width: 768px) { /* Updated from 600px to 768px */
+@media (max-width: 600px) {
     .container {
         width: 95%;
         padding: 20px;
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .refresh-btn {
@@ -225,11 +180,13 @@ tr:hover {
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         text-align: left;
         transition: background 0.3s ease, color 0.3s ease;
+        border-left: 5px solid #D31145; /* Red Accent */
     }
 
     .player-card h3 {
         margin-bottom: 6px;
         font-size: 18px;
+        color: #002B5C;
     }
 
     .player-card p {
@@ -241,29 +198,13 @@ tr:hover {
     .dark-mode-card {
         background: #2a2a2a !important;
         color: white !important;
-        border: 1px solid #444;
-    }
-    
-    /* Adjust error message for mobile */
-    .error-message {
-        padding: 10px;
-        font-size: 14px;
+        border-left: 5px solid #D31145 !important;
     }
 }
 
 /* Hide mobile cards on desktop */
-@media (min-width: 769px) { /* Updated from 601px to 769px */
+@media (min-width: 601px) {
     .player-cards-container {
         display: none;
     }
-}
-
-/* Animation for data refresh */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-tbody tr, .player-card {
-    animation: fadeIn 0.3s ease-in-out;
 }
