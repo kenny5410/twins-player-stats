@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minnesota Twins Player Stats</title>
+    <title>Minnesota Twins Player Stats | StatVue</title>
+    <meta name="description" content="Track the top 10 hitters and pitchers of the Minnesota Twins' season with StatVue's analytics dashboard.">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="static/styles.css">
     <script defer src="static/script.js"></script>
 </head>
@@ -11,60 +13,82 @@
     <div class="container">
         <header class="header">
             <h1>⚾ Minnesota Twins Player Stats</h1>
-            <nav>
-                <a href="about.html" class="nav-link">About StatVue</a>
-            </nav>
-            <button id="dark-mode-toggle">🌙</button>
+            <div class="header-right">
+                <nav>
+                    <a href="about.html" class="nav-link">About StatVue</a>
+                </nav>
+                <button id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+            </div>
         </header>
         
         <p class="subtitle">Tracking the top 10 hitters and pitchers of the season.</p>
 
-        <button class="refresh-btn" onclick="fetchHitters(); fetchPitchers();">🔄 Refresh Stats</button>
+        <button class="refresh-btn" id="refresh-stats-btn" aria-label="Refresh statistics">🔄 Refresh Stats</button>
 
-        <!-- Hitters Section -->
-        <section>
-            <h2>Top 10 Hitters</h2>
-            <div id="hitters-loading" class="loading">Loading...</div>
-            <table id="hitters-table">
-                <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>AVG</th>
-                        <th>HR</th>
-                        <th>OPS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data Fetched from API -->
-                </tbody>
-            </table>
-            <div id="hitters-cards" class="player-cards-container"></div>
-        </section>
+        <main>
+            <!-- Hitters Section -->
+            <section>
+                <h2>Top 10 Hitters</h2>
+                <div id="hitters-loading" class="loading" aria-live="polite">Loading...</div>
+                <div class="table-responsive">
+                    <table id="hitters-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">NAME</th>
+                                <th scope="col">AVG</th>
+                                <th scope="col">HR</th>
+                                <th scope="col">OPS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data Fetched from API -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="hitters-cards" class="player-cards-container"></div>
+            </section>
 
-        <!-- Pitchers Section -->
-        <section>
-            <h2>Top 10 Pitchers</h2>
-            <div id="pitchers-loading" class="loading">Loading...</div>
-            <table id="pitchers-table">
-                <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>ERA</th>
-                        <th>WHIP</th>
-                        <th>K/9</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data Fetched from API -->
-                </tbody>
-            </table>
-            <div id="pitchers-cards" class="player-cards-container"></div>
-        </section>
+            <!-- Pitchers Section -->
+            <section>
+                <h2>Top 10 Pitchers</h2>
+                <div id="pitchers-loading" class="loading" aria-live="polite">Loading...</div>
+                <div class="table-responsive">
+                    <table id="pitchers-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">NAME</th>
+                                <th scope="col">ERA</th>
+                                <th scope="col">WHIP</th>
+                                <th scope="col">K/9</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data Fetched from API -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="pitchers-cards" class="player-cards-container"></div>
+            </section>
+        </main>
 
         <!-- Footer -->
         <footer>
             <p>Built by <strong>StatVue</strong> – Modern sports analytics</p>
+            <p>&copy; 2025 StatVue. All rights reserved.</p>
         </footer>
     </div>
+
+    <!-- Script to handle refresh button click -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const refreshBtn = document.getElementById('refresh-stats-btn');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    fetchHitters();
+                    fetchPitchers();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
