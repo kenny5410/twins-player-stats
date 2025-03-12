@@ -86,6 +86,32 @@ section {
     margin-top: 30px;
 }
 
+/* Loading indicator */
+.loading {
+    margin: 10px 0;
+    color: #666;
+    font-style: italic;
+}
+
+/* Error message styling */
+.error-message {
+    color: #d32f2f;
+    background-color: #ffebee;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.error-message::before {
+    content: "⚠️";
+    margin-right: 8px;
+}
+
 /* Table Styles */
 table {
     width: 100%;
@@ -113,10 +139,6 @@ tr:hover {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-.dark-mode tr:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
 /* 🔥 DARK MODE STYLES 🔥 */
 .dark-mode {
     background-color: #121212;
@@ -127,6 +149,10 @@ tr:hover {
     background-color: #1e1e1e;
     color: white;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .subtitle {
+    color: #aaa;
 }
 
 .dark-mode table {
@@ -141,8 +167,30 @@ tr:hover {
     background-color: #3a3a3a;
 }
 
+.dark-mode .loading {
+    color: #aaa;
+}
+
+.dark-mode .error-message {
+    background-color: #4a0c0c;
+    color: #ff9d9d;
+    border: 1px solid #6e1414;
+}
+
+/* Accessibility improvements */
+.dark-mode-toggle:focus,
+.refresh-btn:focus {
+    outline: 2px solid #4d90fe;
+    outline-offset: 2px;
+}
+
+.dark-mode .dark-mode-toggle:focus,
+.dark-mode .refresh-btn:focus {
+    outline: 2px solid #80bdff;
+}
+
 /* ✅ Mobile-Friendly Adjustments */
-@media (max-width: 600px) {
+@media (max-width: 768px) { /* Updated from 600px to 768px */
     .container {
         width: 95%;
         padding: 20px;
@@ -195,11 +243,27 @@ tr:hover {
         color: white !important;
         border: 1px solid #444;
     }
+    
+    /* Adjust error message for mobile */
+    .error-message {
+        padding: 10px;
+        font-size: 14px;
+    }
 }
 
 /* Hide mobile cards on desktop */
-@media (min-width: 601px) {
+@media (min-width: 769px) { /* Updated from 601px to 769px */
     .player-cards-container {
         display: none;
     }
+}
+
+/* Animation for data refresh */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+tbody tr, .player-card {
+    animation: fadeIn 0.3s ease-in-out;
 }
