@@ -38,48 +38,51 @@ async function fetchPitchers() {
     }
 }
 
-// Populate table & mobile cards
+// Populate table & mobile cards (only if on mobile)
 function populateTable(tableId, data, cardContainerId) {
     const tableBody = document.querySelector(`#${tableId} tbody`);
     const cardContainer = document.getElementById(cardContainerId);
     tableBody.innerHTML = "";
     cardContainer.innerHTML = "";
 
+    const isMobile = window.innerWidth <= 600; // Detect if the user is on mobile
+
     data.forEach(player => {
-        const row = document.createElement("tr");
+        if (!isMobile) {
+            // Populate Table for Desktop
+            const row = document.createElement("tr");
+            if (tableId === "hitters-table") {
+                row.innerHTML = `
+                    <td>${player.name}</td>
+                    <td>${player.avg}</td>
+                    <td>${player.hr}</td>
+                    <td>${player.ops}</td>
+                `;
+            } else if (tableId === "pitchers-table") {
+                row.innerHTML = `
+                    <td>${player.name}</td>
+                    <td>${player.era}</td>
+                    <td>${player.whip}</td>
+                    <td>${player.k9}</td>
+                `;
+            }
+            tableBody.appendChild(row);
+        } else {
+            // Populate Mobile Cards (only if on mobile)
+            const card = document.createElement("div");
+            card.classList.add("player-card");
+            if (document.body.classList.contains("dark-mode")) {
+                card.classList.add("dark-mode-card");
+            }
 
-        if (tableId === "hitters-table") {
-            row.innerHTML = `
-                <td>${player.name}</td>
-                <td>${player.avg}</td>
-                <td>${player.hr}</td>
-                <td>${player.ops}</td>
+            card.innerHTML = `
+                <h3>${player.name}</h3>
+                <p><strong>${tableId === "hitters-table" ? "AVG" : "ERA"}:</strong> ${player.avg || player.era}</p>
+                <p><strong>${tableId === "hitters-table" ? "HR" : "WHIP"}:</strong> ${player.hr || player.whip}</p>
+                <p><strong>${tableId === "hitters-table" ? "OPS" : "K/9"}:</strong> ${player.ops || player.k9}</p>
             `;
-        } else if (tableId === "pitchers-table") {
-            row.innerHTML = `
-                <td>${player.name}</td>
-                <td>${player.era}</td>
-                <td>${player.whip}</td>
-                <td>${player.k9}</td>
-            `;
+            cardContainer.appendChild(card);
         }
-
-        tableBody.appendChild(row);
-
-        // Create Card for Mobile
-        const card = document.createElement("div");
-        card.classList.add("player-card");
-        if (document.body.classList.contains("dark-mode")) {
-            card.classList.add("dark-mode-card"); // Apply dark mode styling if enabled
-        }
-
-        card.innerHTML = `
-            <h3>${player.name}</h3>
-            <p><strong>${tableId === "hitters-table" ? "AVG" : "ERA"}:</strong> ${player.avg || player.era}</p>
-            <p><strong>${tableId === "hitters-table" ? "HR" : "WHIP"}:</strong> ${player.hr || player.whip}</p>
-            <p><strong>${tableId === "hitters-table" ? "OPS" : "K/9"}:</strong> ${player.ops || player.k9}</p>
-        `;
-        cardContainer.appendChild(card);
     });
 }
 
