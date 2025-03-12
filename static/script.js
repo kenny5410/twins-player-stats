@@ -52,17 +52,29 @@ async function fetchData(endpoint) {
 async function fetchPlayers(playerTypeConfig) {
   const loadingElement = document.getElementById(playerTypeConfig.loadingId);
   
+  // Check if we're on a page with the tables
+  const table = document.getElementById(playerTypeConfig.tableId);
+  if (!table) {
+    console.log(`Table ${playerTypeConfig.tableId} not found, skipping fetch`);
+    return;
+  }
+  
+  const section = table.closest('section');
+  if (!section) {
+    console.error(`Section not found for table ${playerTypeConfig.tableId}`);
+    return;
+  }
+  
   // Create error element if it doesn't exist
   let errorElement = document.getElementById(playerTypeConfig.errorId);
   if (!errorElement) {
-    const section = document.querySelector(`#${playerTypeConfig.tableId}`).closest('section');
-    if (section) {
-      errorElement = document.createElement('div');
-      errorElement.id = playerTypeConfig.errorId;
-      errorElement.className = 'error-message';
-      errorElement.style.display = 'none';
-      section.insertBefore(errorElement, section.querySelector('table'));
-    }
+    errorElement = document.createElement('div');
+    errorElement.id = playerTypeConfig.errorId;
+    errorElement.className = 'error-message';
+    errorElement.style.display = 'none';
+    
+    // Insert error element before the table
+    section.insertBefore(errorElement, table);
   }
   
   if (loadingElement) loadingElement.style.display = "block";
@@ -269,7 +281,7 @@ function setupResponsiveHandling() {
  */
 function refreshAllStats() {
   // Only try to fetch data if we're on the stats page
-  if (document.getElementById("hitters-table") && document.getElementById("pitchers-table")) {
+  if (document.getElementById("hitters-table") || document.getElementById("pitchers-table")) {
     fetchPlayers(CONFIG.PLAYER_TYPES.HITTERS);
     fetchPlayers(CONFIG.PLAYER_TYPES.PITCHERS);
   }
@@ -283,7 +295,7 @@ function initApp() {
   setupDarkModeToggle();
   
   // Only set up these features if we're on the stats page
-  if (document.getElementById("hitters-table") && document.getElementById("pitchers-table")) {
+  if (document.getElementById("hitters-table") || document.getElementById("pitchers-table")) {
     // Set up responsive handling
     setupResponsiveHandling();
     
