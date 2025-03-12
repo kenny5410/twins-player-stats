@@ -46,39 +46,75 @@ async function fetchData(endpoint) {
 }
 
 /**
+ * Show an error message
+ * @param {string} message - Error message to display
+ * @param {string} sectionId - ID of the section to show the error in
+ */
+function showError(message, sectionId) {
+  const section = document.getElementById(sectionId);
+  if (!section) {
+    console.error(`Section ${sectionId} not found`);
+    return;
+  }
+  
+  const errorId = `${sectionId}-error`;
+  
+  // Look for existing error div
+  let errorDiv = document.getElementById(errorId);
+  
+  // If no error div exists, create one
+  if (!errorDiv) {
+    errorDiv = document.createElement('div');
+    errorDiv.id = errorId;
+    errorDiv.className = 'error-message';
+    section.appendChild(errorDiv); // Append at the end of the section
+  }
+  
+  errorDiv.textContent = message;
+  errorDiv.style.display = 'block';
+}
+
+/**
+ * Hide error message
+ * @param {string} sectionId - ID of the section to hide the error in
+ */
+function hideError(sectionId) {
+  const errorId = `${sectionId}-error`;
+  const errorDiv = document.getElementById(errorId);
+  if (errorDiv) {
+    errorDiv.style.display = 'none';
+  }
+}
+
+/**
  * Fetch and display player data
  * @param {Object} playerTypeConfig - Configuration for the player type
  */
 async function fetchPlayers(playerTypeConfig) {
-  const loadingElement = document.getElementById(playerTypeConfig.loadingId);
-  
-  // Check if we're on a page with the tables
+  // Check if the table exists first
   const table = document.getElementById(playerTypeConfig.tableId);
   if (!table) {
     console.log(`Table ${playerTypeConfig.tableId} not found, skipping fetch`);
     return;
   }
   
+  // Determine the section ID from the table's parent
   const section = table.closest('section');
   if (!section) {
     console.error(`Section not found for table ${playerTypeConfig.tableId}`);
     return;
   }
   
-  // Create error element if it doesn't exist
-  let errorElement = document.getElementById(playerTypeConfig.errorId);
-  if (!errorElement) {
-    errorElement = document.createElement('div');
-    errorElement.id = playerTypeConfig.errorId;
-    errorElement.className = 'error-message';
-    errorElement.style.display = 'none';
-    
-    // Insert error element before the table
-    section.insertBefore(errorElement, table);
+  // Use the section's ID or create one if it doesn't have one
+  const sectionId = section.id || `section-${playerTypeConfig.tableId}`;
+  if (!section.id) {
+    section.id = sectionId;
   }
   
+  const loadingElement = document.getElementById(playerTypeConfig.loadingId);
   if (loadingElement) loadingElement.style.display = "block";
-  if (errorElement) errorElement.style.display = "none";
+  
+  hideError(sectionId);
   
   try {
     const players = await fetchData(playerTypeConfig.endpoint);
@@ -90,10 +126,7 @@ async function fetchPlayers(playerTypeConfig) {
     );
   } catch (error) {
     console.error(`Error fetching ${playerTypeConfig.endpoint}:`, error);
-    if (errorElement) {
-      errorElement.textContent = `Failed to load data. Please try again later.`;
-      errorElement.style.display = "block";
-    }
+    showError('Failed to load data. Please try again later.', sectionId);
   } finally {
     if (loadingElement) loadingElement.style.display = "none";
   }
@@ -161,12 +194,12 @@ function populateTable(tableId, cardContainerId, players, columns) {
  */
 function setupDarkModeToggle() {
   const darkModeToggle = document.getElementById("dark-mode-toggle");
-  const body = document.body;
-  
   if (!darkModeToggle) {
     console.error("Dark mode toggle button not found");
     return;
   }
+  
+  const body = document.body;
 
   // Load saved theme preference
   const savedDarkMode = localStorage.getItem("darkMode");
@@ -177,10 +210,12 @@ function setupDarkModeToggle() {
     body.classList.add("dark-mode");
     darkModeToggle.textContent = "☀️";
     darkModeToggle.setAttribute("aria-label", "Switch to light mode");
+    darkModeToggle.setAttribute("title", "Switch to light mode");
   } else {
     body.classList.remove("dark-mode");
     darkModeToggle.textContent = "🌙";
     darkModeToggle.setAttribute("aria-label", "Switch to dark mode");
+    darkModeToggle.setAttribute("title", "Switch to dark mode");
   }
   
   // Apply dark mode to all existing cards
@@ -194,6 +229,7 @@ function setupDarkModeToggle() {
     localStorage.setItem("darkMode", newDarkMode ? "enabled" : "disabled");
     darkModeToggle.textContent = newDarkMode ? "☀️" : "🌙";
     darkModeToggle.setAttribute("aria-label", newDarkMode ? "Switch to light mode" : "Switch to dark mode");
+    darkModeToggle.setAttribute("title", newDarkMode ? "Switch to light mode" : "Switch to dark mode");
     
     updateDarkModeForCards(newDarkMode);
   });
