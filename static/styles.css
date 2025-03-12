@@ -208,3 +208,28 @@ tr:hover {
         display: none;
     }
 }
+
+/* About Page Styling */
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #D31145; /* Twins Red */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+    background: #A30D35;
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+}
